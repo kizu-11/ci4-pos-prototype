@@ -1,0 +1,35 @@
+CREATE DATABASE IF NOT EXISTS pos_db;
+USE pos_db;
+
+-- 1. Create Customers Table
+CREATE TABLE customers (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  full_name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  phone VARCHAR(20),
+  created_at DATETIME NOT NULL
+);
+
+-- 2. Create Users Table
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  full_name VARCHAR(100) NOT NULL,
+  created_at DATETIME NOT NULL
+);
+
+-- 3. Seed Sample Data: Customers
+INSERT INTO customers (full_name, email, phone, created_at) VALUES
+('Maria Santos', 'maria.santos@example.com', '09171234567', NOW()),
+('Juan Dela Cruz', 'juan.delacruz@example.com', '09181234568', NOW()),
+('Ana Reyes', 'ana.reyes@example.com', '09191234569', NOW()),
+('Carlos Mendoza', 'carlos.mendoza@example.com', '09201234570', NOW()),
+('Liza Soberano', 'liza.soberano@example.com', '09211234571', NOW());
+
+-- 4. Seed Sample Data: Users
+INSERT INTO users (username, full_name, created_at) VALUES
+('admin_main', 'Alexander Hamilton', NOW()),
+('cashier_1', 'John Doe', NOW()),
+('cashier_2', 'Jane Smith', NOW()),
+('inventory_mgr', 'Robert Johnson', NOW()),
+('supervisor_1', 'Emily Davis', NOW());
