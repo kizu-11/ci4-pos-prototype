@@ -31,7 +31,7 @@
 
     <div class="card">
         <h1>Customer Accounts Directory</h1>
-        <p class="subtitle">Listing of registered store customers (Data Source: MySQL Database):</p>
+        <p class="subtitle">Listing of registered store customers (Data Source: MySQL Database via CustomerModel):</p>
 
         <table>
             <thead>

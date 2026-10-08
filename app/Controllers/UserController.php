@@ -8,10 +8,10 @@ class UserController extends BaseController
 {
     public function index()
     {
-        $userModel = new UserModel();
-
-        // Fetch records from MySQL instead of static array
-        $data['users'] = $userModel->findAll();
+        $model = new UserModel();
+        
+        // Fetch records directly from MySQL database table
+        $data['users'] = $model->findAll();
 
         return view('users/index', $data);
     }

@@ -8,10 +8,10 @@ class CustomerController extends BaseController
 {
     public function index()
     {
-        $customerModel = new CustomerModel();
+        $model = new CustomerModel();
         
-        // Fetch records from MySQL instead of static array
-        $data['customers'] = $customerModel->findAll();
+        // Fetch records directly from MySQL database table instead of static array
+        $data['customers'] = $model->findAll();
 
         return view('customers/index', $data);
     }
