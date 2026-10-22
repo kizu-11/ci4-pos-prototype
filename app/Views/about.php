@@ -24,7 +24,7 @@
     <div class="card">
         <h1>About the POS System</h1>
         <p>This CodeIgniter 4 POS prototype demonstrates customer and user account management, form validation, editing workflows, and profile avatar uploads.</p>
-        <p>This hosted classroom demonstration stores its sample records in a temporary file-based store so the pages can be demonstrated without an online MySQL database.</p>
+        <p>This hosted classroom demonstration stores its sample records in a temporary file-based store so the pages can be demonstrated.</p>
     </div>
 </body>
 </html>
