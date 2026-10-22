@@ -56,7 +56,14 @@
                             <td><?= esc($user['username']) ?></td>
                             <td><?= esc($user['full_name']) ?></td>
                             <td>
-                                <img class="avatar" src="<?= site_url('uploads/avatars/' . ($user['avatar'] ?: 'placeholder.svg')) ?>" alt="Avatar for <?= esc($user['full_name']) ?>">
+                                <?php
+                                    $avatarFile = ! empty($user['avatar']) ? basename($user['avatar']) : 'placeholder.svg';
+                                    $avatarPath = FCPATH . 'uploads/avatars/' . $avatarFile;
+                                    if (! is_file($avatarPath)) {
+                                        $avatarFile = 'placeholder.svg';
+                                    }
+                                ?>
+                                <img class="avatar" src="<?= esc(base_url('uploads/avatars/' . $avatarFile)) ?>" alt="Avatar for <?= esc($user['full_name']) ?>">
                             </td>
                             <td><a href="<?= site_url('users/edit/' . $user['id']) ?>">Edit</a></td>
                         </tr>
