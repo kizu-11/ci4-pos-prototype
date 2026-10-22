@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "username": "admin",
+        "full_name": "System Administrator",
+        "avatar": "",
+        "created_at": "2026-10-22 14:39:15"
+    },
+    {
+        "id": 2,
+        "username": "johnny",
+        "full_name": "Johnny Bravo",
+        "avatar": "",
+        "created_at": "2026-10-22 14:39:15"
+    }
+]
