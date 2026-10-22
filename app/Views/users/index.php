@@ -3,24 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System User & Staff Accounts</title>
+    <title>User Accounts</title>
+
     <style>
-        * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 0; }
-        body { background-color: #f4f6f9; padding: 20px; color: #333; }
-        .navbar { background-color: #2c3e50; border-radius: 6px; padding: 12px 20px; margin-bottom: 25px; display: flex; gap: 20px; }
-        .navbar a { color: #ffffff; text-decoration: none; font-weight: bold; font-size: 15px; }
-        .navbar a:hover { text-decoration: underline; }
-        .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        h1 { font-size: 26px; font-weight: 700; margin-bottom: 10px; color: #1a202c; }
-        .subtitle { color: #4a5568; font-size: 14px; margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; border: 1px solid #e2e8f0; }
-        th { background-color: #34495e; color: #ffffff; text-align: left; padding: 12px 15px; font-size: 14px; }
-        td { padding: 12px 15px; border-top: 1px solid #e2e8f0; font-size: 14px; color: #2d3748; }
-        tr:nth-child(even) { background-color: #f8fafc; }
-        .footer { text-align: center; margin-top: 30px; color: #a0aec0; font-size: 13px; }
-        .avatar { width: 48px; height: 48px; object-fit: cover; border-radius: 50%; vertical-align: middle; }
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #f4f6f9;
+            padding: 20px;
+            color: #333;
+        }
+
+        .navbar {
+            background: #2c3e50;
+            border-radius: 6px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: #1a202c;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .add-button {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #2563eb;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #34495e;
+            color: white;
+            text-align: left;
+            padding: 12px 15px;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .avatar {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .edit-link {
+            color: #2563eb;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .edit-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #a0aec0;
+            font-size: 13px;
+        }
     </style>
 </head>
+
 <body>
 
     <nav class="navbar">
@@ -31,12 +131,22 @@
     </nav>
 
     <div class="card">
+
         <h1>System User & Staff Accounts</h1>
-        <p class="subtitle">Listing of authorized system operators (Hosted demonstration mode):</p>
+
+        <p class="subtitle">
+            Listing of authorized system operators.
+        </p>
+
         <?php if (session()->getFlashdata('success')): ?>
-            <p style="background:#dcfce7;color:#166534;padding:10px;margin-bottom:15px;border-radius:5px;"><?= esc(session()->getFlashdata('success')) ?></p>
+            <div class="success">
+                <?= esc(session()->getFlashdata('success')) ?>
+            </div>
         <?php endif; ?>
-        <p style="margin-bottom:15px;"><a href="<?= site_url('users/new') ?>">+ Add New User</a></p>
+
+        <a class="add-button" href="<?= site_url('users/new') ?>">
+            + Add New User
+        </a>
 
         <table>
             <thead>
@@ -48,37 +158,69 @@
                     <th>Action</th>
                 </tr>
             </thead>
+
             <tbody>
                 <?php if (!empty($users)): ?>
+
                     <?php foreach ($users as $user): ?>
+
+                        <?php
+                            $avatarFile = !empty($user['avatar'])
+                                ? basename($user['avatar'])
+                                : 'placeholder.svg';
+
+                            $avatarPath = FCPATH . 'uploads/avatars/' . $avatarFile;
+
+                            if (!is_file($avatarPath)) {
+                                $avatarFile = 'placeholder.svg';
+                            }
+
+                            $avatarUrl = base_url('uploads/avatars/' . $avatarFile);
+                        ?>
+
                         <tr>
                             <td><?= esc($user['id']) ?></td>
+
                             <td><?= esc($user['username']) ?></td>
+
                             <td><?= esc($user['full_name']) ?></td>
+
                             <td>
-                                <?php
-                                    $avatarFile = ! empty($user['avatar']) ? basename($user['avatar']) : 'placeholder.svg';
-                                    $avatarPath = FCPATH . 'uploads/avatars/' . $avatarFile;
-                                    if (! is_file($avatarPath)) {
-                                        $avatarFile = 'placeholder.svg';
-                                    }
-                                ?>
-                                <img class="avatar" src="<?= esc(base_url('uploads/avatars/' . $avatarFile)) ?>" alt="Avatar for <?= esc($user['full_name']) ?>">
+                                <img
+                                    class="avatar"
+                                    src="<?= esc($avatarUrl) ?>"
+                                    alt="Avatar for <?= esc($user['full_name']) ?>"
+                                >
                             </td>
-                            <td><a href="<?= site_url('users/edit/' . $user['id']) ?>">Edit</a></td>
+
+                            <td>
+                                <a
+                                    class="edit-link"
+                                    href="<?= site_url('users/edit/' . $user['id']) ?>"
+                                >
+                                    Edit
+                                </a>
+                            </td>
                         </tr>
+
                     <?php endforeach; ?>
+
                 <?php else: ?>
+
                     <tr>
-                        <td colspan="5" style="text-align: center;">No user records found.</td>
+                        <td colspan="5" style="text-align: center;">
+                            No user records found.
+                        </td>
                     </tr>
+
                 <?php endif; ?>
             </tbody>
         </table>
     </div>
 
     <div class="footer">
-        &copy; 2026 POS System Prototype. Built with CodeIgniter 4.
+        &copy; 2026 POS System Prototype.
+        Built with CodeIgniter 4.
     </div>
 
 </body>

@@ -20,10 +20,11 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="<?= site_url('/') ?>">Home</a>
-        <a href="<?= site_url('customers') ?>">Customer Accounts</a>
-        <a href="<?= site_url('users') ?>">User Accounts</a>
-    </nav>
+    <a href="<?= site_url('/') ?>">Home</a>
+    <a href="<?= site_url('about') ?>">About</a>
+    <a href="<?= site_url('customers') ?>">Customer Accounts</a>
+    <a href="<?= site_url('users') ?>">User Accounts</a>
+</nav>
     <div class="card">
         <h1><?= esc($title) ?></h1>
         <?php if (session()->getFlashdata('errors')): ?>
